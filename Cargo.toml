@@ -1,0 +1,12 @@
+[package]
+name = "zao_ecg_axis"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+fltk = { version = "1.1.17", features = ["enable-glwindow"] }
+glu-sys = "0.1.4"
+gl= "0.14.0"
+fltk-sys = "1.1.17"
