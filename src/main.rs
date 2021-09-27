@@ -87,8 +87,8 @@ pub fn main() {
 
     
 
-    //let mut gl_wind = window::GlutWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
-    let mut gl_wind = window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
+    let mut gl_wind = window::GlutWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
+    //let mut gl_wind = window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
     gl_wind.set_mode(enums::Mode::Opengl3);
 
     gl_wind.make_resizable(true);
@@ -174,8 +174,7 @@ pub fn main() {
                     *arrow_angle.borrow_mut() = angle;
                     frame_slider.set_label(&(angle).to_string());
                     //println!("{}", &angle.to_string());
-
-                    //gl_wind.redraw();
+                    gl_wind.redraw();
                 }
                 //_ => continue,
                 _ => println!(" Message End"),

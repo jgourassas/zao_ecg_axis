@@ -16,7 +16,7 @@ const START_INNER_RADIUS: f64 = 0.05;
 const INNER_INCREMENT: f64 = 0.10;
 /*
 glColor4f(1.0f, 0.0f, 0.0f, 0.0f);//red
-lColor3f(1.0f, 0.5f, 0.0f);//Orange
+glColor3f(1.0f, 0.5f, 0.0f);//Orange
 glColor3f(0.5f, 0.5f, 0.5f);//Violet
 glColor3f(0.0f, 0.5f, 0.5f);//Blue-Green
 
@@ -64,8 +64,257 @@ pub fn setup_gl() {
     } //unsafe
 }
 /////////////////////////////
+pub fn draw_scene(arrow_angle: &f32){
+      
+       setup_gl();
+      
+       draw_lead_circles();
+       set_lead_circles_annotations();
+       draw_generator();
+       draw_vector_arrow(arrow_angle);
+      
 
-pub fn draw_scene(rotate_arrow: &f32) {
+
+
+}//draw_scene
+////////////////////////////
+pub fn draw_lead_circles(){
+unsafe{
+    use glu_sys::*;
+    let qobj = gluNewQuadric();
+
+///////////////////////LEAD NEGATIVE I
+    glPopMatrix();
+    glPushMatrix();
+    glColor4f(0.0, 0.60, 1.0, 0.8);
+        draw_zao_lead(
+            0.0,
+            0.0,
+            0.0,
+            START_INNER_RADIUS + (INNER_INCREMENT * 0.0),
+            START_INNER_RADIUS + (INNER_INCREMENT * 0.0) + LEAD_WIDTH,
+            0.0,
+            -180.0,
+        ); 
+
+///////////LEAD POSITIVE I
+glPushMatrix();
+glColor4f(1.0, 1.0, 1.0, 0.8);
+draw_zao_lead(
+    0.0,
+    0.0,
+    0.0,
+    START_INNER_RADIUS + (INNER_INCREMENT * 0.0),
+    START_INNER_RADIUS + (INNER_INCREMENT * 0.0) + LEAD_WIDTH,
+    0.0,
+    180.0,
+); //I
+glPopMatrix();
+
+
+//////////LEAD POSITIVE II
+
+glPushMatrix();
+        glColor4f(0.0, 0.60, 1.0, 0.8);
+        draw_zao_lead(
+            0.0,
+            0.0,
+            0.0,
+            START_INNER_RADIUS + (INNER_INCREMENT * 1.0),
+            START_INNER_RADIUS + (INNER_INCREMENT * 1.0) + LEAD_WIDTH,
+            60.0,
+            -180.0,
+        ); 
+
+        glPopMatrix();
+   //////////LEAD NEGATIVE II     
+        glPushMatrix();
+        glColor4f(1.0, 1.0, 1.0, 0.8);
+        draw_zao_lead(
+            0.0,
+            0.0,
+            0.0,
+            START_INNER_RADIUS + (INNER_INCREMENT * 1.0),
+            START_INNER_RADIUS + (INNER_INCREMENT * 1.0) + LEAD_WIDTH,
+            60.0,
+            180.0,
+        ); //II
+        glPopMatrix();
+ ///////////////// LEAD III POSITIVE //////////////////////////////////////
+ glPushMatrix();
+ glColor4f(0.0, 0.60, 1.0, 0.8);
+ draw_zao_lead(
+     0.0,
+     0.0,
+     0.0,
+     START_INNER_RADIUS + (INNER_INCREMENT * 2.0),
+     START_INNER_RADIUS + (INNER_INCREMENT * 2.0) + LEAD_WIDTH,
+     120.0,
+     -180.0,
+ ); //III
+ glPopMatrix();
+///////////////// LEAD III NEGATIVE //////////////////////////////////////
+ glPushMatrix();
+ glColor4f(1.0, 1.0, 1.0, 0.8);
+ draw_zao_lead(
+     0.0,
+     0.0,
+     0.0,
+     START_INNER_RADIUS + (INNER_INCREMENT * 2.0),
+     START_INNER_RADIUS + (INNER_INCREMENT * 2.0) + LEAD_WIDTH,
+     120.0,
+     180.0,
+ ); //III
+ glPopMatrix();
+ ////////////////
+ //////////////// aVR POSITIVE
+ glPushMatrix();
+ glColor4f(0.0, 0.60, 1.0, 0.8);
+ draw_zao_lead(
+     0.0,
+     0.0,
+     0.0,
+     START_INNER_RADIUS + (INNER_INCREMENT * 3.0),
+     START_INNER_RADIUS + (INNER_INCREMENT * 3.0) + LEAD_WIDTH,
+     210.0,
+     -180.0,
+ ); //aVR
+ glPopMatrix();
+//////////////////aVR NEGATIVE
+ glPushMatrix();
+ glColor4f(1.0, 1.0, 1.0, 0.8);
+ draw_zao_lead(
+     0.0,
+     0.0,
+     0.0,
+     START_INNER_RADIUS + (INNER_INCREMENT * 3.0),
+     START_INNER_RADIUS + (INNER_INCREMENT * 3.0) + LEAD_WIDTH,
+     210.0,
+     180.0,
+ ); //aVR
+ glPopMatrix();
+
+ /////////////////// AVL POSITIVE////////////////////
+ glPushMatrix();
+ glColor4f(0.0, 0.60, 1.0, 0.8);
+ draw_zao_lead(
+     0.0,
+     0.0,
+     0.0,
+     START_INNER_RADIUS + (INNER_INCREMENT * 4.0),
+     START_INNER_RADIUS + (INNER_INCREMENT * 4.0) + LEAD_WIDTH,
+     330.0,
+     -180.0,
+ ); //avL
+ glPopMatrix();
+/////////////////// AVL NEGATIVE////////////////////
+ glPushMatrix();
+ glColor4f(1.0, 1.0, 1.0, 0.8);
+ draw_zao_lead(
+     0.0,
+     0.0,
+     0.0,
+     START_INNER_RADIUS + (INNER_INCREMENT * 4.0),
+     START_INNER_RADIUS + (INNER_INCREMENT * 4.0) + LEAD_WIDTH,
+     330.0,
+     180.0,
+ ); //avL
+ glPopMatrix();
+
+ ////////////////////
+//////////////////// 
+/////////////////// AVF POSITIVE////////////////////
+glPushMatrix();
+glColor4f(0.0, 0.60, 1.0, 0.8);
+draw_zao_lead(0.0,0.0,0.0, 
+                     START_INNER_RADIUS+(INNER_INCREMENT*5.0), 
+               START_INNER_RADIUS+(INNER_INCREMENT*5.0)+LEAD_WIDTH, 
+90.0, -180.0); //aVF
+glPopMatrix();
+/////////////////// AVF NEGATIVE////////////////////
+glPushMatrix();
+glColor4f(1.0, 1.0, 1.0, 0.8);
+draw_zao_lead(0.0,0.0,0.0, 
+              START_INNER_RADIUS+(INNER_INCREMENT*5.0), 
+               START_INNER_RADIUS+(INNER_INCREMENT*5.0)+LEAD_WIDTH, 
+90.0, 180.0); //aVF
+glPopMatrix();
+/////////////////////END OF LEAD CIRCLES
+gluDeleteQuadric(qobj);
+
+
+}//unsafe
+
+}//draw_lead_circles
+////////////////////////////
+pub fn set_lead_circles_annotations(){
+
+}//set annotations
+/////////////////////////////
+
+pub fn draw_generator(){
+
+}
+////////////////
+pub fn draw_vector_arrow(arrow_angle: &f32){
+    println!(" Arrow Angle 22: {}", &arrow_angle.to_string());
+    unsafe{
+    use glu_sys::*;
+    let qobj = gluNewQuadric();
+    let inner_radius: f64 = 0.72;
+    let outer_radius: f64 = 0.73;
+    ///////////draw a sphere at the center Leads
+    glPushMatrix();
+          glColor3f(0.5, 0.5, 0.5);//Violet
+          
+          glRotatef(90.0, 1.0, 0.0, 0.0);
+          gluSphere(qobj,
+                0.02,
+                10,
+                15 );
+        glPopMatrix();
+     
+    //draw an outside circle
+       glPushMatrix();
+        glTranslatef(0.0, 0.0, 0.0);
+        gluPartialDisk(qobj, inner_radius, outer_radius, 142, 140, 0.0, 360.0);
+       glPopMatrix();
+      
+       //draw the arrow
+
+       glPushMatrix();
+      // glColor3f(1.0, 0.5, 0.0);//Orange
+       glColor4f(1.0, 0.0, 0.0, 0.8);//red
+       glRotatef(90.0, 1.0, 0.0, 0.0);
+       glRotatef(*arrow_angle, 0.0, 1.0, 0.0);
+       gluCylinder(qobj,
+        0.01,
+        0.01,
+        outer_radius - 0.02,
+        10,
+        20 );
+        glTranslatef(0.0, 0.0, outer_radius  as f32  - 0.08);
+        gluCylinder(qobj,
+            0.01 + 0.02,
+            0.00,
+            0.1,
+            10,
+            20 );
+       glPopMatrix();
+
+       gluDeleteQuadric(qobj);
+
+//glPopMatrix();
+    }//unsafe
+
+
+}//draw_arrow_vector
+
+
+
+//////////////////////////
+////////////////////////////////////
+pub fn draw_scene1(rotate_arrow: &f32) {
     setup_gl();
     ///////////////////////////
     unsafe {
