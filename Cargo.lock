@@ -165,7 +165,6 @@ name = "zao_ecg_axis"
 version = "0.1.0"
 dependencies = [
  "fltk",
- "fltk-sys",
  "gl",
  "glu-sys",
 ]

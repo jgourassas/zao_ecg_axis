@@ -9,4 +9,3 @@ edition = "2018"
 fltk = { version = "1.1.17", features = ["enable-glwindow"] }
 glu-sys = "0.1.4"
 gl= "0.14.0"
-fltk-sys = "1.1.17"
