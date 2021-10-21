@@ -125,24 +125,17 @@ pub fn main() {
    
     
    //let mut gl_wind = window::GlutWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
-    //let mut gl_wind = window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
     let mut gl_wind =
         window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
 
 
-    //gl_wind.set_mode(enums::Mode::Opengl3);
+   // gl_wind.set_mode(enums::Mode::Opengl3);//Is flickring 
     gl_wind.make_resizable(true);
 
     let arrow_angle = Rc::from(RefCell::from(0.0));
     let arrow_angle_c = arrow_angle.clone();
 
- //   });
- /*
- gl_wind.draw(Box::new(move || {
-  setup_gl();
-  draw_scene(&arrow_angle_c.borrow())
-}));
-*/
+
 
 
 gl_wind.draw( move |_|  {
