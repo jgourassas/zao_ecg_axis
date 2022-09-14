@@ -1,11 +1,9 @@
-use fltk::*;
-use fltk::{prelude::*,  valuator::*, *};
-use fltk::{frame::*,  frame::Frame, window::*, button::Button};
 use fltk::enums::Color;
+use fltk::*;
+use fltk::{button::Button, frame::Frame, frame::*, window::*};
+use fltk::{prelude::*, valuator::*, *};
 
 use std::ops::{Deref, DerefMut};
-
-
 
 #[derive(Debug, Clone)]
 
@@ -15,7 +13,6 @@ pub struct MySlider {
 
 impl MySlider {
     pub fn new(x: i32, y: i32, w: i32, h: i32, title: &str, bounds: [i32; 2]) -> MySlider {
-
         let mut sl = valuator::HorNiceSlider::new(x, y, w, h, "Rotate Arrow");
         sl.set_bounds(bounds[0] as f64, bounds[1] as f64);
         sl.set_frame(enums::FrameType::RoundUpBox);

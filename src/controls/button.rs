@@ -1,7 +1,7 @@
+use fltk::enums::Color;
 use fltk::*;
 use fltk::{app, button::*, prelude::*};
 use std::ops::{Deref, DerefMut};
-use fltk::enums::Color;
 
 #[derive(Debug, Clone)]
 pub struct MyButton {
@@ -13,7 +13,7 @@ pub struct MyButton {
 
 impl MyButton {
     pub fn new(x: i32, y: i32, w: i32, h: i32, title: &'static str) -> MyButton {
-        let mut btn = button::Button::new(x, y, w, h, title );
+        let mut btn = button::Button::new(x, y, w, h, title);
         btn.set_callback(move |b| b.parent().unwrap().hide());
         //btn.set_color(Color::from_rgb(238, 232, 205));
         btn.set_label_size(18);
