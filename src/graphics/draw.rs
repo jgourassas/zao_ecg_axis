@@ -1,7 +1,4 @@
 use glu_sys::*;
-extern crate glyph_brush;
-//use glyph_brush::{ab_glyph::FontArc, BrushAction, BrushError, GlyphBrushBuilder, Section, Text};
-use glyph_brush::{ab_glyph::*, *};
 extern crate gl;
 
 use gl::types::{GLboolean, GLchar, GLenum, GLfloat, GLsizeiptr, GLuint};
@@ -14,10 +11,15 @@ use std::str;
 
 use fltk::enums::*;
 use fltk::{prelude::*, *};
+use fltk::*;
+use glu_sys::*;
+
+//use fltk_sys::*;
+use std::os::raw::*;
 
 //use fltk::app::fonts::*;
 
-const SIZE_UNIT: f32 = 2.5;
+//const SIZE_UNIT: f32 = 2.5;
 const LEAD_WIDTH: f64 = 0.09;
 const OUTER_RADIOUS: f64 = 0.73;
 const START_INNER_RADIUS: f64 = 0.05;
@@ -39,6 +41,8 @@ glColor3f(0.1, 0.0, 0.0);//Brown
 
 /////////////////////////
 pub fn setup_gl() {
+ 
+ 
     unsafe {
         glClearColor(0.0, 0.0, 0.0, 0.0);
 
@@ -56,24 +60,32 @@ pub fn setup_gl() {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     } //unsafe
+
 }
 /////////////////////////////
 pub fn draw_scene(arrow_angle: &f32) {
+   // setup_gl();
+    //draw_triangle(arrow_angle);
     draw_lead_circles();
     set_lead_circles_annotations();
     draw_vector_arrow(arrow_angle);
-    draw_outside_circle();
+    //draw_outside_circle();
+   // write_degrees();
+
+    draw_lead_names();
+
 } //draw_scene
 
 ////////////////////////////
 pub fn draw_lead_circles() {
     unsafe {
-        use glu_sys::*;
+        //use glu_sys::*;
+     
         let qobj = gluNewQuadric();
         ///////////////////////
         ///////////////////////LEAD NEGATIVE I
 
-        glClear(GL_COLOR_BUFFER_BIT);
+       glClear(GL_COLOR_BUFFER_BIT);
 
         glPushMatrix();
         glColor4f(0.0, 0.60, 1.0, 0.8);
@@ -115,8 +127,8 @@ pub fn draw_lead_circles() {
             60.0,
             -180.0,
         );
-
         glPopMatrix();
+
         //////////LEAD NEGATIVE II
         glPushMatrix();
         glColor4f(1.0, 1.0, 1.0, 0.8);
@@ -130,6 +142,8 @@ pub fn draw_lead_circles() {
             180.0,
         ); //II
         glPopMatrix();
+
+
         ///////////////// LEAD III POSITIVE //////////////////////////////////////
         glPushMatrix();
         glColor4f(0.0, 0.60, 1.0, 0.8);
@@ -143,6 +157,7 @@ pub fn draw_lead_circles() {
             -180.0,
         ); //III
         glPopMatrix();
+
         ///////////////// LEAD III NEGATIVE //////////////////////////////////////
         glPushMatrix();
         glColor4f(1.0, 1.0, 1.0, 0.8);
@@ -157,6 +172,7 @@ pub fn draw_lead_circles() {
         ); //III
         glPopMatrix();
         ////////////////
+        
         //////////////// aVR POSITIVE
         glPushMatrix();
         glColor4f(0.0, 0.60, 1.0, 0.8);
@@ -170,6 +186,8 @@ pub fn draw_lead_circles() {
             -180.0,
         ); //aVR
         glPopMatrix();
+        
+        
         //////////////////aVR NEGATIVE
         glPushMatrix();
         glColor4f(1.0, 1.0, 1.0, 0.8);
@@ -197,6 +215,7 @@ pub fn draw_lead_circles() {
             -180.0,
         ); //avL
         glPopMatrix();
+        
         /////////////////// AVL NEGATIVE////////////////////
         glPushMatrix();
         glColor4f(1.0, 1.0, 1.0, 0.8);
@@ -226,6 +245,8 @@ pub fn draw_lead_circles() {
             -180.0,
         ); //aVF
         glPopMatrix();
+        
+        
         /////////////////// AVF NEGATIVE////////////////////
         glPushMatrix();
         glColor4f(1.0, 1.0, 1.0, 0.8);
@@ -241,7 +262,7 @@ pub fn draw_lead_circles() {
         glPopMatrix();
         /////////////////////END OF LEAD CIRCLES
         gluDeleteQuadric(qobj);
-        glFlush();
+        
     } //unsafe
 } //draw_lead_circles
   ////////////////////////////
@@ -253,16 +274,14 @@ pub fn set_lead_circles_annotations() {
     // let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
 
     unsafe {
+        glPushMatrix();
         let qobj = gluNewQuadric();
         gluQuadricNormals(qobj, GLU_SMOOTH);
-
-        glPushMatrix();
-
-        glPushMatrix();
-
-        glColor3f(0.0, 0.5, 1.0); //baby Blue
-                                  //gl_draw(const char *s, int x, int y)
-                                  //void gl_draw(const char *s, int x, int y, int w, int h, Fl_Align)
+       // glColor3f(0.0, 0.5, 1.0); //baby Blue
+        glColor3f(2.0, 0.5, 1.0);//Lilac
+        //glColor3f(0.5, 0.5, 0.5);//Violet
+        //gl_draw(const char *s, int x, int y)
+        //void gl_draw(const char *s, int x, int y, int w, int h, Fl_Align)
 
         //Any point (x,y) on the path of the circle is x = r sin(θ), y = rcos(θ).
         //x = r*cos(a*Pi/180), y = r*sin(a*Pi/180)
@@ -277,22 +296,12 @@ pub fn set_lead_circles_annotations() {
 
             glPushMatrix();
             glTranslatef(x as f32, y as f32, z as f32);
-            gluSphere(qobj, 0.015, 10, 15);
+            gluSphere(qobj, 0.010, 10, 15);
             glPopMatrix();
 
             ////////////////////////////////
             //write the degrees around the circle
-            glPushMatrix(); /////////////1
-
-            glPopMatrix(); //////////////1
-            let mut value = 15.0 * i;
-            if value > 0.0 && value < 90.1 {
-                let value_as_string = value.to_string();
-                //gldraw(value_as_string, x as u8, y as u8);
-                // let mut buffer = ::rusttyper::RunBuffer::new();
-
-                println!("string value = {}", value_as_string);
-            }
+            
 
             /*
 
@@ -339,16 +348,7 @@ pub fn set_lead_circles_annotations() {
             i += 1.0;
         }
 
-        /*
-              while(i<24){
-
-                fltk::gldrawtext(vect_hor_buffer,
-                                     x+0.009,
-                                     y+0.009,
-                                     z+0.09 );
-
-        */
-        glPopMatrix();
+           glPopMatrix();
       
        
          ///////////////////
@@ -366,7 +366,7 @@ pub fn set_lead_circles_annotations() {
             glLoadIdentity();
             glPushMatrix();
             glTranslatef(jx as f32, jy as f32, z as f32);
-            gluSphere(qobj, 0.004, 10, 15);
+            gluSphere(qobj, 0.003, 10, 15);
             glPopMatrix();
 
            
@@ -381,6 +381,7 @@ pub fn set_lead_circles_annotations() {
           //gluDeleteQuadric(qobj);
         glFlush();
     } //unsafe
+
 } //set annotations
   /////////////////////////////
   ////////////////
@@ -423,23 +424,25 @@ pub fn draw_vector_arrow(arrow_angle: &f32) {
 //////////////////////////
 pub fn draw_outside_circle() {
     unsafe {
-        let inner_radius: f64 = 0.72;
-        let outer_radius: f64 = 0.73;
+        let inner_radius: f64 = 0.70;
+        let outer_radius: f64 = 0.71;
 
         //draw an outside circle
         let qobj = gluNewQuadric();
+
         glPushMatrix();
-        glLineWidth(2.0);
+        glLineWidth(1.5);
         gluQuadricNormals(qobj, GLU_SMOOTH);
-        glColor3f(0.0, 0.5, 1.0); //baby Blue
-                                  // glColor3f(1.0, 1.0, 1.0);//Orange
+        //glColor3f(0.0, 0.5, 1.0); //baby Blue
+       //`  glColor3f(1.0, 1.0, 1.0);//Orange
+       glColor3f(2.0, 0.5, 1.0);//Lilac
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        gluDisk(qobj, inner_radius, outer_radius, 124, 124);
+        gluDisk(qobj, inner_radius, outer_radius, 224, 224);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         glPopMatrix();
-
-        glFlush();
+        gluDeleteQuadric(qobj);
+        //glFlush();
     } //unsafe
 }
 
@@ -475,3 +478,117 @@ pub fn draw_zao_lead(
         gluDeleteQuadric(qobj);
     } //unsafe
 } //draw_zao_lead
+
+
+
+pub fn draw_lead_names(){
+ unsafe{
+  
+    glPushMatrix();
+    glColor3f(2.0, 0.5, 1.0);//Lilac
+// glColor3f(0.1,0.1,0.1); // Dark Gray
+ let mut lead_name="IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
+ //fltk::draw::draw_text(&lead_name.to_string(), 0.07 as i32, 0.02 as i32);
+ fltk::draw::draw_text(&lead_name.to_string(), 1300 as i32, 1300 as i32);
+ glRasterPos2f(250 as f32 , 250 as f32);
+
+  //glutBitmapString(font, string);
+  //glLoadIdentity(); 
+ glPopMatrix();
+
+ }   
+}
+/*
+pub fn draw_lead_names()  
+
+glPopMatrix();
+// glColor3f(0.0f,0.0f,1.0f); // Blue
+    glColor3f(0.1f,0.1f,0.1f); // Dark Gray
+ 
+    lead_name="I";
+    fltk::gldrawtext(lead_name.c_str(), float(0.07), float(0.02),float(0.003));
+   lead_name="II";
+    fltk::gldrawtext(lead_name.c_str(), float(0.16), float(0.02),float(0.003));
+   lead_name="III";
+    fltk::gldrawtext(lead_name.c_str(), float(0.26), float(0.02),float(0.003));
+    lead_name="R";
+    fltk::gldrawtext(lead_name.c_str(), float(0.36), float(0.02),float(0.003));
+    lead_name="L";
+    fltk::gldrawtext(lead_name.c_str(), float(0.48), float(0.02),float(0.003));
+    lead_name="F";
+    fltk::gldrawtext(lead_name.c_str(), float(0.56), float(0.02),float(0.003));
+
+    glPushMatrix();
+
+
+*/
+
+
+pub fn write_degrees() {
+    let mut i: f64 = 0.0;
+    unsafe{
+    let mut value = 15.0 * i;
+    if value > 0.0 && value < 90.1 {
+        let value_as_string = value.to_string();
+      // fltk::gldrawtext(value_as_string, x as u8, y as u8);
+       let lead_name = "aVR";
+      // gl_font(1, 18);
+       //glRasterPos3f( 100.0 as f32, y: 350.0 as f32, z: 00.1 as f32 );  p = "+ left";  gl_draw(p, strlen(p));
+     
+      
+       //fltk::gldrawtext(lead_name.to_string(), 0.48 as f32, 0.02 as f32, 0.003 as f32);
+        // let mut buffer = ::rusttyper::RunBuffer::new();
+
+        println!("string value = {}", value_as_string);
+
+    } 
+}
+}
+
+
+
+fn draw_triangle(rotangle: &f32) {
+    unsafe {
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_ALWAYS); 
+        glDepthFunc(GL_LEQUAL);
+        glDepthRange(0.0, 1.0);
+        glDepthMask(1);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glViewport(0, 0, 1300, 1300);
+        gluPerspective(45.0, (1300 as f32 / 1300 as f32).into(), 1.0, 10.0);
+        glTranslatef(0.0, 0.0, -5.0);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+        glRotatef(*rotangle, 1.0, 1.0, 0.0);
+        glColor3f(1.0, 0.0, 0.0);
+        glBegin(GL_POLYGON);
+        glVertex3f(0.0, 1.0, 0.0);
+        glVertex3f(1.0, -1.0, 1.0);
+        glVertex3f(-1.0, -1.0, 1.0);
+        glEnd();
+        glColor3f(0.0, 1.0, 0.0);
+        glBegin(GL_POLYGON);
+        glVertex3f(0.0, 1.0, 0.0);
+        glVertex3f(0.0, -1.0, -1.0);
+        glVertex3f(1.0, -1.0, 1.0);
+        glEnd();
+        glColor3f(0.0, 0.0, 1.0);
+        glBegin(GL_POLYGON);
+        glVertex3f(0.0, 1.0, 0.0);
+        glVertex3f(-1.0, -1.0, 1.0);
+        glVertex3f(0.0, -1.0, -1.0);
+        glEnd();
+        glColor3f(1.0, 0.0, 0.0);
+        glBegin(GL_POLYGON);
+        glVertex3f(1.0, -1.0, 1.0);
+        glVertex3f(0.0, -1.0, -1.0);
+        glVertex3f(-1.0, -1.0, 1.0);
+        glEnd();
+        glLoadIdentity();
+        glRasterPos2f(-3.0, -2.0);
+    }
+}

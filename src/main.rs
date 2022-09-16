@@ -22,7 +22,6 @@ use std::{error::Error, fmt, mem, panic, thread, time};
 extern crate gl;
 use gl::types::*;
 //use glu_sys::*;
-
 mod graphics;
 use graphics::draw::{
     draw_lead_circles, draw_outside_circle, draw_scene, draw_vector_arrow, setup_gl,
@@ -199,7 +198,3 @@ fn cb_quit() {
     std::process::exit(0x0100);
 } //cb_quit
   /***********************************************************/
-
-fn dummy() {
-    println!("dymmy");
-}
