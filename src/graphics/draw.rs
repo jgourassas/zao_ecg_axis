@@ -1,5 +1,11 @@
 use glu_sys::*;
 extern crate gl;
+extern crate glium;
+extern crate glium_text;
+
+//use glium::glium-text;
+
+
 
 use gl::types::{GLboolean, GLchar, GLenum, GLfloat, GLsizeiptr, GLuint};
 use std::f64::consts::PI;
@@ -37,11 +43,15 @@ glColor3f(0.1, 0.1, 0.0);//Bronze
 glColor3f(0.0, 0.1, 0.1);//Dark blue
 glColor3f(0.0, 0.1, 0.0);//Forest Green
 glColor3f(0.1, 0.0, 0.0);//Brown
+glColor4f(1.0f, 1.0f, 1.0f, 0.0f);//white
+glColor4f(1.0f, 1.0f, 0.0f, 0.0f);//yellow
+glColor4f(1.0f, 0.0f, 1.0f, 0.0f);//purple
+glColor3f(0.0f, 1.0f, 0.0f);//Green
+
 */
 
 /////////////////////////
 pub fn setup_gl() {
- 
  
     unsafe {
         glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -64,15 +74,15 @@ pub fn setup_gl() {
 }
 /////////////////////////////
 pub fn draw_scene(arrow_angle: &f32) {
-   // setup_gl();
-    //draw_triangle(arrow_angle);
+//pub fn draw_scene(arrow_angle: &f32, gl_wind: window::GlWindow) {
+    setup_gl();
     draw_lead_circles();
     set_lead_circles_annotations();
     draw_vector_arrow(arrow_angle);
-    //draw_outside_circle();
-   // write_degrees();
+    draw_outside_circle();
+    write_degrees();
 
-    draw_lead_names();
+   // draw_lead_names();
 
 } //draw_scene
 
@@ -269,9 +279,7 @@ pub fn draw_lead_circles() {
 pub fn set_lead_circles_annotations() {
     let mut i: f64 = 0.0;
     let outer_radius: f64 = 0.73 + 0.03;
-    //let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"));
-    //  let dejavu = FontRef::try_from_slice(include_bytes!("../../fonts/OpenSans-Light.ttf"));
-    // let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+   
 
     unsafe {
         glPushMatrix();
@@ -396,7 +404,8 @@ pub fn draw_vector_arrow(arrow_angle: &f32) {
         ///////////draw a sphere at the center Leads
         glPushMatrix();
         //glColor3f(0.5, 0.5, 0.5);//Violet
-        glColor3f(1.0, 0.5, 0.0); //Orange
+        //glColor3f(1.0, 0.5, 0.0); //Orange
+        glColor4f(1.0, 0.0, 0.0, 0.8); //red
         gluSphere(qobj, 0.02, 10, 15);
         glPopMatrix();
 
@@ -415,30 +424,54 @@ pub fn draw_vector_arrow(arrow_angle: &f32) {
         gluCylinder(qobj, 0.01 + 0.02, 0.00, 0.1, 10, 20);
         glPopMatrix();
 
-        glPopMatrix(); //---------------------
+        //glPopMatrix(); //---------------------
 
         gluDeleteQuadric(qobj);
     } //unsafe
 } //draw_arrow_vector
-
-//////////////////////////
+//////////////////
 pub fn draw_outside_circle() {
     unsafe {
-        let inner_radius: f64 = 0.70;
-        let outer_radius: f64 = 0.71;
+        let inner_radius: f64 = 0.72;
+        let outer_radius: f64 = 0.73;
+        let start_angle: f64 = 0.0;
+        let end_angle: f64 = 360.0;
 
         //draw an outside circle
         let qobj = gluNewQuadric();
+        glPushMatrix();
+
+        gluQuadricDrawStyle(qobj, GLU_FILL);
+        gluQuadricNormals(qobj, GLU_TRUE);
+        gluQuadricNormals(qobj, GLU_SMOOTH);
+        gluPartialDisk(qobj, inner_radius, outer_radius, 42, 40, start_angle, end_angle);
+        glColor3f(0.1, 0.1, 0.1); //Dark grey
+        gluPartialDisk(qobj, outer_radius, outer_radius + 0.007, 42, 50, start_angle, end_angle);
+
+        glPopMatrix();
+
+        //glFlush();
+    } //unsafe
+}
+
+//////////////////////////
+pub fn draw_outside_circle1() {
+    unsafe {
+        let inner_radius: f64 = 0.72;
+        let outer_radius: f64 = 0.71;
+        let qobj = gluNewQuadric();
 
         glPushMatrix();
+       // glLoadIdentity();
         glLineWidth(1.5);
+        glColor3f(2.0, 0.5, 1.0);//Lilac
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        gluDisk(qobj, inner_radius, outer_radius, 224, 224);
         gluQuadricNormals(qobj, GLU_SMOOTH);
         //glColor3f(0.0, 0.5, 1.0); //baby Blue
-       //`  glColor3f(1.0, 1.0, 1.0);//Orange
-       glColor3f(2.0, 0.5, 1.0);//Lilac
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        gluDisk(qobj, inner_radius, outer_radius, 224, 224);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+         //glColor3f(1.0, 1.0, 1.0);//Orange
+        
+        println!("Inside outside");
 
         glPopMatrix();
         gluDeleteQuadric(qobj);
@@ -469,7 +502,6 @@ pub fn draw_zao_lead(
         gluQuadricNormals(qobj, GLU_TRUE);
         gluQuadricNormals(qobj, GLU_SMOOTH);
         gluPartialDisk(qobj, inner_radius, outer_radius, 42, 40, start_angle, end_angle);
-
         glColor3f(0.1, 0.1, 0.1); //Dark grey
         gluPartialDisk(qobj, outer_radius, outer_radius + 0.007, 42, 50, start_angle, end_angle);
 
@@ -482,22 +514,38 @@ pub fn draw_zao_lead(
 
 
 pub fn draw_lead_names(){
- unsafe{
-  
+
+//pub fn draw_lead_names(gl_wind: window::GlWindow) {
+unsafe{
     glPushMatrix();
+
+  //  let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"));
+    // let dejavu = FontRef::try_from_slice(include_bytes!("../../fonts/OpenSans-Light.ttf"));
+    // let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+
     glColor3f(2.0, 0.5, 1.0);//Lilac
-// glColor3f(0.1,0.1,0.1); // Dark Gray
- let mut lead_name="IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
- //fltk::draw::draw_text(&lead_name.to_string(), 0.07 as i32, 0.02 as i32);
- fltk::draw::draw_text(&lead_name.to_string(), 1300 as i32, 1300 as i32);
- glRasterPos2f(250 as f32 , 250 as f32);
 
-  //glutBitmapString(font, string);
-  //glLoadIdentity(); 
+    let lead_name="I";
+    //fltk::gldrawtext(lead_name.to_string(), 0.07 as f32, 0.02 as f32, 0.003 as f32);
+
+  //  let system = glium_text::TextSystem::new(&gl_wind);
+   // let font = glium_text::FontTexture::new(&gl_wind, 
+   //    std::fs::File::open(&std::path::Path::new("../../fonts/DejaVuSans.ttf")).unwrap(), 24).unwrap();
+   //let text = glium_text::TextDisplay::new(&system, &font, "Hello world!");
+   
+// Finally, drawing the text is done like this:
+/*
+let matrix = [[1.0, 0.0, 0.0, 0.0],
+[0.0, 1.0, 0.0, 0.0],
+[0.0, 0.0, 1.0, 0.0],
+[0.0, 0.0, 0.0, 1.0]];
+glium_text::draw(&text, &system, &mut display.draw(), matrix, (1.0, 1.0, 0.0, 1.0));
+*/  
+//fltk::draw::draw_text(&lead_name.to_string(), 0.07 as i32, 0.02 as i32);
  glPopMatrix();
-
+   }//unsafe
  }   
-}
+
 /*
 pub fn draw_lead_names()  
 
@@ -529,24 +577,27 @@ pub fn write_degrees() {
     unsafe{
     let mut value = 15.0 * i;
     if value > 0.0 && value < 90.1 {
-        let value_as_string = value.to_string();
-      // fltk::gldrawtext(value_as_string, x as u8, y as u8);
-       let lead_name = "aVR";
+        let lead_name = "aVR";
+        let name_as_string = lead_name.to_string();
+        //fltk::gldrawtext(lead_name.to_string(), 0.48 as f32, 0.02 as f32, 0.003 as f32);
+      
+        // fltk::gldrawtext(value_as_string, x as u8, y as u8);
+      
       // gl_font(1, 18);
        //glRasterPos3f( 100.0 as f32, y: 350.0 as f32, z: 00.1 as f32 );  p = "+ left";  gl_draw(p, strlen(p));
      
       
-       //fltk::gldrawtext(lead_name.to_string(), 0.48 as f32, 0.02 as f32, 0.003 as f32);
+     
         // let mut buffer = ::rusttyper::RunBuffer::new();
 
-        println!("string value = {}", value_as_string);
+        println!("string value = {}", value);
 
     } 
 }
 }
 
 
-
+/*
 fn draw_triangle(rotangle: &f32) {
     unsafe {
         glEnable(GL_DEPTH_TEST);
@@ -592,3 +643,13 @@ fn draw_triangle(rotangle: &f32) {
         glRasterPos2f(-3.0, -2.0);
     }
 }
+*/
+/*
+void RenderString(float x, float y, void *font, const char* string, RGB const& rgb)
+{ char *c; glColor3f(rgb.r, rgb.g, rgb.b); glRasterPos2f(x, y); 
+     glutBitmapString(font, string);
+}
+
+RenderString(0.0f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Hello", RGB(1.0f, 0.0f, 0.0f));
+
+*/

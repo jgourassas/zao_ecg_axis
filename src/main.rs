@@ -21,15 +21,22 @@ use std::{error::Error, fmt, mem, panic, thread, time};
 
 extern crate gl;
 use gl::types::*;
+//extern crate glium;
+//extern crate glium_text;
+
 //use glu_sys::*;
 mod graphics;
 use graphics::draw::{
-    draw_lead_circles, draw_outside_circle, draw_scene, draw_vector_arrow, setup_gl,
+    draw_lead_circles, draw_outside_circle, draw_scene, 
+    draw_vector_arrow, setup_gl, draw_lead_names
 };
 
 mod controls;
 use controls::button::MyButton;
 use controls::slider::MySlider;
+
+
+
 
 const MARGIN_TOP: i32 = 50;
 const MARGIN_BOTTOM: i32 = 100;
@@ -52,6 +59,9 @@ const SLIDER_Y: i32 = FRAME_INFO_Y + 30;
 const SLIDER_BOUNDS: [i32; 2] = [-180, 180];
 const SLIDER_TITLE: &str = "Move Arrow";
 
+//
+//const GL_WIND:  window::GlWindow =
+  //      window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
 #[derive(Debug, Clone, Copy)]
 
 pub enum Message {
@@ -92,20 +102,27 @@ pub fn main() {
     but_quit.set_color(enums::Color::from_rgb(255, 0, 0));
     but_quit.set_frame(fltk::enums::FrameType::OFlatFrame);
 
-    //let mut gl_wind = window::GlutWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!" );
-    let mut gl_wind =
+    
+    let mut gl_wind: window::GlWindow =
         window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
+    
+    ///////////jgour///
+    //let system = glium_text::TextSystem::new(&gl_wind);
 
-    // gl_wind.set_mode(enums::Mode::Opengl3);//Is flickring
+    ///////////////////
+        // gl_wind.set_mode(enums::Mode::Opengl3);//Is flickring
     gl_wind.make_resizable(true);
 
     let arrow_angle = Rc::from(RefCell::from(0.0));
     let arrow_angle_c = arrow_angle.clone();
-
+    
+    
     gl_wind.draw(move |_| {
-        setup_gl();
-        draw_scene(&arrow_angle_c.borrow());
-    });
+               draw_scene(&arrow_angle_c.borrow());
+               //draw_lead_names(&gl_wind_c.borrow());
+
+
+              });
 
     let _gl = gl::load_with(|s| gl_wind.get_proc_address(s) as *const std::os::raw::c_void);
     gl_wind.end();

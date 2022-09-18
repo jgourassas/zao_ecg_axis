@@ -13,7 +13,7 @@
 
 **To compile you need:**
 
-OpenGl, Rust, FLTK, fltk-rs
+OpenGl, Rust, FLTK, fltk-rs 
 
 ***For Debian I do:*** 
 
