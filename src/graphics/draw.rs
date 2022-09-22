@@ -1,9 +1,5 @@
 use glu_sys::*;
 extern crate gl;
-extern crate glium;
-extern crate glium_text;
-
-//use glium::glium-text;
 
 
 
@@ -18,7 +14,6 @@ use std::str;
 use fltk::enums::*;
 use fltk::{prelude::*, *};
 use fltk::*;
-use glu_sys::*;
 
 //use fltk_sys::*;
 use std::os::raw::*;
@@ -55,10 +50,12 @@ pub fn setup_gl() {
  
     unsafe {
         glClearColor(0.0, 0.0, 0.0, 0.0);
-
+        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
+
+
 
         glEnable(GL_DEPTH_TEST); // Enable depth buffering
         glDepthFunc(GL_LEQUAL); // Useful for multipass shaders
@@ -69,6 +66,8 @@ pub fn setup_gl() {
         glHint(GL_LINE_SMOOTH_HINT, GL_NICEST); // Antialias the lines
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
     } //unsafe
 
 }
@@ -76,11 +75,11 @@ pub fn setup_gl() {
 pub fn draw_scene(arrow_angle: &f32) {
 //pub fn draw_scene(arrow_angle: &f32, gl_wind: window::GlWindow) {
     setup_gl();
+    draw_outside_circle(); 
     draw_lead_circles();
     set_lead_circles_annotations();
     draw_vector_arrow(arrow_angle);
-    draw_outside_circle();
-    write_degrees();
+   //write_degrees();
 
    // draw_lead_names();
 
@@ -94,8 +93,6 @@ pub fn draw_lead_circles() {
         let qobj = gluNewQuadric();
         ///////////////////////
         ///////////////////////LEAD NEGATIVE I
-
-       glClear(GL_COLOR_BUFFER_BIT);
 
         glPushMatrix();
         glColor4f(0.0, 0.60, 1.0, 0.8);
@@ -409,75 +406,61 @@ pub fn draw_vector_arrow(arrow_angle: &f32) {
         gluSphere(qobj, 0.02, 10, 15);
         glPopMatrix();
 
-        ///////////////////draw the arrow
+        ///////////////////draw the arrow arm
         glPushMatrix(); //---------------------
-
         glTranslatef(0.0, 0.0, 0.0);
         glRotatef(90.0, 0.0, 1.0, 0.0);
         glRotatef(*arrow_angle, 1.0, 0.0, 0.0);
-
-        glPushMatrix();
         glColor4f(1.0, 0.0, 0.0, 0.8); //red
         gluCylinder(qobj, 0.01, 0.01, outer_radius - 0.02, 10, 20);
-
+               
+        //the arrow head//
+       
         glTranslatef(0.0, 0.0, outer_radius as f32 - 0.08);
         gluCylinder(qobj, 0.01 + 0.02, 0.00, 0.1, 10, 20);
         glPopMatrix();
 
-        //glPopMatrix(); //---------------------
 
         gluDeleteQuadric(qobj);
+        
     } //unsafe
 } //draw_arrow_vector
 //////////////////
 pub fn draw_outside_circle() {
     unsafe {
-        let inner_radius: f64 = 0.72;
-        let outer_radius: f64 = 0.73;
+        let inner_radius: f64 = 0.78;
+        let outer_radius: f64 = 0.86;
         let start_angle: f64 = 0.0;
         let end_angle: f64 = 360.0;
 
         //draw an outside circle
         let qobj = gluNewQuadric();
-        glPushMatrix();
 
+        glPushMatrix();
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_ALWAYS); 
+        glDepthFunc(GL_LEQUAL);
+        glDepthRange(0.0, 1.0);
+        glDepthMask(1);
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glMatrixMode(GL_PROJECTION);
+        //glLoadIdentity();
+        glColor3f(0.5, 0.0, 1.0); // make this vertex purple
+        gluPartialDisk(qobj, outer_radius, outer_radius + 0.007, 142, 150, start_angle, end_angle);
+       /*
         gluQuadricDrawStyle(qobj, GLU_FILL);
         gluQuadricNormals(qobj, GLU_TRUE);
         gluQuadricNormals(qobj, GLU_SMOOTH);
-        gluPartialDisk(qobj, inner_radius, outer_radius, 42, 40, start_angle, end_angle);
-        glColor3f(0.1, 0.1, 0.1); //Dark grey
-        gluPartialDisk(qobj, outer_radius, outer_radius + 0.007, 42, 50, start_angle, end_angle);
-
-        glPopMatrix();
-
-        //glFlush();
-    } //unsafe
-}
-
-//////////////////////////
-pub fn draw_outside_circle1() {
-    unsafe {
-        let inner_radius: f64 = 0.72;
-        let outer_radius: f64 = 0.71;
-        let qobj = gluNewQuadric();
-
-        glPushMatrix();
-       // glLoadIdentity();
-        glLineWidth(1.5);
-        glColor3f(2.0, 0.5, 1.0);//Lilac
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        gluDisk(qobj, inner_radius, outer_radius, 224, 224);
-        gluQuadricNormals(qobj, GLU_SMOOTH);
-        //glColor3f(0.0, 0.5, 1.0); //baby Blue
-         //glColor3f(1.0, 1.0, 1.0);//Orange
-        
-        println!("Inside outside");
-
+        glColor3f(0.5, 0.0, 1.0); // make this vertex purple
+        gluPartialDisk(qobj, outer_radius, outer_radius + 0.007, 142, 150, start_angle, end_angle);
+       */
         glPopMatrix();
         gluDeleteQuadric(qobj);
         //glFlush();
     } //unsafe
 }
+
+//////////////////////////
 
 ////////////////////////////////////
 
@@ -524,26 +507,21 @@ unsafe{
     // let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
 
     glColor3f(2.0, 0.5, 1.0);//Lilac
-
+    
+  
     let lead_name="I";
-    //fltk::gldrawtext(lead_name.to_string(), 0.07 as f32, 0.02 as f32, 0.003 as f32);
+   // fltk::gldrawtext(lead_name, GLUT_BITMAP_TIMES_ROMAN_24, 0, 0);
 
-  //  let system = glium_text::TextSystem::new(&gl_wind);
-   // let font = glium_text::FontTexture::new(&gl_wind, 
-   //    std::fs::File::open(&std::path::Path::new("../../fonts/DejaVuSans.ttf")).unwrap(), 24).unwrap();
-   //let text = glium_text::TextDisplay::new(&system, &font, "Hello world!");
-   
-// Finally, drawing the text is done like this:
-/*
-let matrix = [[1.0, 0.0, 0.0, 0.0],
-[0.0, 1.0, 0.0, 0.0],
-[0.0, 0.0, 1.0, 0.0],
-[0.0, 0.0, 0.0, 1.0]];
-glium_text::draw(&text, &system, &mut display.draw(), matrix, (1.0, 1.0, 0.0, 1.0));
-*/  
-//fltk::draw::draw_text(&lead_name.to_string(), 0.07 as i32, 0.02 as i32);
+   /*
+   use glyph_brush::{ab_glyph::FontArc, BrushAction, BrushError, GlyphBrushBuilder, Section, Text};
+
+let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"))?;
+let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+
+glyph_brush.queue(Section::default().add_text(Text::new("Hello glyph_brush")
  glPopMatrix();
-   }//unsafe
+*/
+   } //unsafe
  }   
 
 /*
@@ -590,7 +568,7 @@ pub fn write_degrees() {
      
         // let mut buffer = ::rusttyper::RunBuffer::new();
 
-        println!("string value = {}", value);
+     //   println!("string value = {}", value);
 
     } 
 }

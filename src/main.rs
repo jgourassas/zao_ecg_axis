@@ -19,6 +19,7 @@ use std::ptr;
 use std::str;
 use std::{error::Error, fmt, mem, panic, thread, time};
 
+
 extern crate gl;
 use gl::types::*;
 //extern crate glium;
@@ -46,15 +47,15 @@ const MARGIN_LEFT: i32 = 10;
 const FLTK_WINDOW_WIDTH: i32 = 1320 - MARGIN_LEFT - MARGIN_RIGHT;
 const FLTK_WINDOW_HEIGHT: i32 = 1320 - MARGIN_TOP - MARGIN_BOTTOM;
 
-const GL_WINDOW_WIDTH: i32 = FLTK_WINDOW_WIDTH - 50;
-const GL_WINDOW_HEIGHT: i32 = FLTK_WINDOW_HEIGHT - 100;
+const GL_WINDOW_WIDTH: i32 = FLTK_WINDOW_WIDTH - 60;
+const GL_WINDOW_HEIGHT: i32 = FLTK_WINDOW_HEIGHT - 120;
 
 const FRAME_INFO_X: i32 = 10;
-const FRAME_INFO_Y: i32 = GL_WINDOW_HEIGHT + 10;
+const FRAME_INFO_Y: i32 = GL_WINDOW_HEIGHT - 5;
 //const FRAME_INFO_WIDTH: i32 = GL_WINDOW_WIDTH;
 //const FRAME_INFO_HEIGHT: i32 = FLTK_WINDOW_HEIGHT - GL_WINDOW_HEIGHT;
 
-const SLIDER_X: i32 = FRAME_INFO_X + 400;
+const SLIDER_X: i32 = FRAME_INFO_X + 350;
 const SLIDER_Y: i32 = FRAME_INFO_Y + 30;
 const SLIDER_BOUNDS: [i32; 2] = [-180, 180];
 const SLIDER_TITLE: &str = "Move Arrow";
@@ -95,7 +96,7 @@ pub fn main() {
 
     let mut frame_slider = Frame::new(SLIDER_X - 70, SLIDER_Y, 70, 50, "");
     frame_slider.set_color(enums::Color::from_rgb(252, 141, 89)); //orange like
-    frame_slider.set_label_size(24);
+    frame_slider.set_label_size(20);
     // frame_slider.set_label("Frame Slider");
 
     let mut but_quit = MyButton::new(FRAME_INFO_X + 20, FRAME_INFO_Y + 20, 70, 40, "Quit➤");
@@ -105,8 +106,11 @@ pub fn main() {
     
     let mut gl_wind: window::GlWindow =
         window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
+
+   // let mut gl_wind: Fl_Glut_Window =
+   //     window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
     
-    ///////////jgour///
+        ///////////jgour///
     //let system = glium_text::TextSystem::new(&gl_wind);
 
     ///////////////////
