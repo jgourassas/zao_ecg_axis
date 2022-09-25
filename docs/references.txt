@@ -1,13 +1,44 @@
 QRS axis validation in clinical electrocardiography
 PMID: 18178420 DOI: 10.1016/j.amjcard.2007.07.069
+
 Abstract
-QRS axis is a key electrocardiographic (ECG) datum in establishing normality and particular diagnoses and is of special concern at the borders of axis ranges for numerous ECG interpretations. Thus, interpreters must be able to recognize gross and small errors in axis determination. This involves the occasional and often inexplicable gross deviation by computers, which should be correct most of the time. This study was undertaken to compare 3 methods of QRS axis calculation and computer interpretation: axes were determined (1) from the bipolar limb leads, (2) from the unipolar limb leads, and (3) from the combination of lead I and lead aVF, which are orthogonal in the Einthoven hexaxial system. In 100 consecutive patients, in whom 87 electrocardiograms were technically clear, there was excellent intermethod agreement for the means, SDs, and interquartile ranges, leaving little to choose from on average. The combination of lead I and lead aVF was best correlated with all the other methods. Because a computer can measure the areas of ECG waves, whereas interpreters necessarily use their amplitudes, hypothetically, the computer is always more accurate. However, computer interpretations are not always available, and physicians regularly interpreting electrocardiograms are aware of axis ranges almost on inspection (especially any algebraically zero, i.e., orthogonal, representation of any lead). They therefore can recognize any serious computer deviations. In conclusion, this investigation indicated that axes calculated from leads I and aVF should be standard to approach precision in initially computing or checking any axis.
+QRS axis is a key electrocardiographic (ECG) datum in establishing normality and particular 
+diagnoses and is of special concern at the borders of axis ranges for numerous ECG interpretations. 
+Thus, interpreters must be able to recognize gross and small errors in axis determination. 
+This involves the occasional and often inexplicable gross deviation by computers, 
+which should be correct most of the time. This study was undertaken to compare 3 methods of QRS axis 
+calculation and computer interpretation: axes were determined 
+(1) from the bipolar limb leads, 
+(2) from the unipolar limb leads, and 
+(3) from the combination of lead I and lead aVF, which are orthogonal in the Einthoven hexaxial system. 
+In 100 consecutive patients, in whom 87 electrocardiograms were technically clear, 
+there was excellent intermethod agreement for the means, SDs, and interquartile ranges, 
+leaving little to choose from on average. 
+The combination of lead I and lead aVF was best correlated with all the other methods. 
+Because a computer can measure the areas of ECG waves, whereas interpreters necessarily 
+use their amplitudes, hypothetically, the computer is always more accurate. 
+However, computer interpretations are not always available, and physicians regularly interpreting 
+electrocardiograms are aware of axis ranges almost on inspection 
+(especially any algebraically zero, i.e., orthogonal, representation of any lead). 
+They therefore can recognize any serious computer deviations. 
+In conclusion, this investigation indicated that axes calculated from leads I and aVF should be 
+standard to approach precision in initially computing or checking any axis.
 
 ---------------------------
 Comparison of teaching the basic electrocardiographic concept of frontal plane QRS axis using the classical versus the orderly electrocardiogram limb lead displays
 Ulrika S.PahlmaJeanne E.O'BrienMDaJonasPetterssonMDbOllePahlmMD, PhDbThomasWhiteMD, PhDbCharlesMaynardPhDcGalen S.WagnerMD
 Abstract
-This study compares the effectiveness of teaching the calculation of frontal plane QRS axis with the use of the classical versus the orderly electrocardiographic limb lead display. Eighty-three students from two environments were randomized into two groups and were taught to determine frontal plane axis with one of the methods. The accuracy and time to determine the axis were tested on 10 electrocardiograms. In the United States the group using the classical display achieved 4.2 (±2.7) correct answers, whereas those using the orderly method achieved 6.8 (±3.0) (p = 0.0006). The classical group used 9.2 (±2.8) minutes to complete the test, whereas the orderly group needed 7.2 (±2.0) minutes (p = 0.015). The results achieved in Sweden were similar. The use of the orderly electrocardiographic limb lead display results in greater diagnostic accuracy in less time than the classical display when determining the frontal plane QRS axis. 
+This study compares the effectiveness of teaching the calculation of frontal plane QRS axis 
+with the use of the classical versus the orderly electrocardiographic limb lead display. 
+Eighty-three students from two environments were randomized into two groups and were taught 
+to determine frontal plane axis with one of the methods. 
+The accuracy and time to determine the axis were tested on 10 electrocardiograms. 
+In the United States the group using the classical display achieved 4.2 (±2.7) correct answers, 
+whereas those using the orderly method achieved 6.8 (±3.0) (p = 0.0006). 
+The classical group used 9.2 (±2.8) minutes to complete the test, whereas the orderly group 
+needed 7.2 (±2.0) minutes (p = 0.015). The results achieved in Sweden were similar. 
+The use of the orderly electrocardiographic limb lead display results in greater diagnostic accuracy 
+in less time than the classical display when determining the frontal plane QRS axis. 
 (Am Heart J 1997;134:1014-8.)
 -------------------------------
 
@@ -15,15 +46,42 @@ Quick method for mean frontal QRS axis determination
 Jorge Martinez-Diaz 1, Jose Escabi-Medoza, Raúl Oviedo, Javier Acevedo
 Bol Asoc Med P R. Oct-Dec 2008;100(4):19-24.
 
-Methods: a new method of estimating the frontal mean QRS axis in the standard 12 lead ECG is proposed. This method consists of assigning pre-determined values to each frontal lead in ECGs, which have a positive or isoelectric QRS complexes in lead, I. The mnemonic "+/- 90, -30, +30, -60, +60, and 0" is obtained by plotting only the value of the axis which is perpendicular to the each lead on the left side of the hexaxial system. The right-sided perpendiculars are not considered since lead I indicates a left sided axis. The most isoelectric lead will have only one value plotted and that will be the mean QRS axis in the frontal plane. By finding the most equiphasic lead(s) and matching the corresponding pre-determined value we can estimate the frontal mean QRS axis in most of the cases. Interpolation between two leads is allowed if no single isoelectric lead is identified. We reviewed the standard 12 lead electrocardiograms of 155 patients who underwent open-heart coronary revascularization procedures at the VA Caribbean Health Center from 2003 to 2006. Frontal mean QRS axis was determined by the proposed new methodology and the results were compared to the QRS axis determined by the GE Marquette 5000 electrocardiographer utilized in all the reviewed ECG's. Simple regression analysis was used to determine the proposed methods predictive accuracy.
-Conclusion: The proposed new method is simple and is able to estimate accurately the ECG frontal axis as compared with the GE Marquette 5000 electrocardiographer in most of the cases.
+Methods: a new method of estimating the frontal mean QRS axis in the standard 12 lead ECG is proposed. 
+This method consists of assigning pre-determined values to each frontal lead in ECGs, 
+which have a positive or isoelectric QRS complexes in lead, I. 
+The mnemonic "+/- 90, -30, +30, -60, +60, and 0" is obtained by plotting only the value of the axis 
+which is perpendicular to the each lead on the left side of the hexaxial system. 
+The right-sided perpendiculars are not considered since lead I indicates a left sided axis. 
+The most isoelectric lead will have only one value plotted and that will be the mean QRS axis 
+in the frontal plane. By finding the most equiphasic lead(s) and matching the corresponding 
+pre-determined value we can estimate the frontal mean QRS axis in most of the cases. 
+Interpolation between two leads is allowed if no single isoelectric lead is identified. 
+We reviewed the standard 12 lead electrocardiograms of 155 patients who underwent open-heart 
+coronary revascularization procedures at the VA Caribbean Health Center from 2003 to 2006. 
+Frontal mean QRS axis was determined by the proposed new methodology and the results were 
+compared to the QRS axis determined by the GE Marquette 5000 electrocardiographer utilized in all 
+the reviewed ECG's. 
+Simple regression analysis was used to determine the proposed methods predictive accuracy.
+
+Conclusion: The proposed new method is simple and is able to estimate accurately the ECG frontal axis 
+as compared with the GE Marquette 5000 electrocardiographer in most of the cases.
 
 --------------------------
 
 A rapid method for frontal plane axis determination in scalar electrocardiograms
 S Laiken, N Laiken, R A O'Rourke, J S Karliner
 PMID: 4266821 DOI: 10.1016/0002-8703(73)90167-1
+
 Abstract
-A new method is proposed for finding the mean QRS axis in scalar ECG's. The method, based on simple trigonometric relations, allows the construction of a single, compact table from which the axis may be read in any of three different lead combinations. For convenience, the table may be reduced to the size of a small card. Since axis determination may depend markedly on the lead combination employed, the method offers substantial advantages over the traditional graphical approach and over tabulations of the QRS axis as a function of deflections for a single pair of leads.
+
+A new method is proposed for finding the mean QRS axis in scalar ECG's. 
+The method, based on simple trigonometric relations, allows the construction 
+of a single, compact table from which the axis may be read in any 
+of three different lead combinations. 
+For convenience, the table may be reduced to the size of a small card. 
+Since axis determination may depend markedly on the lead combination employed, 
+the method offers substantial advantages over the traditional graphical 
+approach and over tabulations of the QRS axis as a function of deflections 
+for a single pair of leads.
 
 

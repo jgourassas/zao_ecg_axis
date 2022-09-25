@@ -19,25 +19,18 @@ use std::ptr;
 use std::str;
 use std::{error::Error, fmt, mem, panic, thread, time};
 
-
 extern crate gl;
 use gl::types::*;
-//extern crate glium;
-//extern crate glium_text;
 
-//use glu_sys::*;
 mod graphics;
 use graphics::draw::{
-    draw_lead_circles, draw_outside_circle, draw_scene, 
-    draw_vector_arrow, setup_gl, draw_lead_names
+    draw_lead_circles, draw_lead_names, draw_outside_circle, draw_scene, draw_vector_arrow,
+    setup_gl,
 };
 
 mod controls;
 use controls::button::MyButton;
 use controls::slider::MySlider;
-
-
-
 
 const MARGIN_TOP: i32 = 50;
 const MARGIN_BOTTOM: i32 = 100;
@@ -62,7 +55,7 @@ const SLIDER_TITLE: &str = "Move Arrow";
 
 //
 //const GL_WIND:  window::GlWindow =
-  //      window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
+//      window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
 #[derive(Debug, Clone, Copy)]
 
 pub enum Message {
@@ -103,30 +96,19 @@ pub fn main() {
     but_quit.set_color(enums::Color::from_rgb(255, 0, 0));
     but_quit.set_frame(fltk::enums::FrameType::OFlatFrame);
 
-    
     let mut gl_wind: window::GlWindow =
         window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
 
-   // let mut gl_wind: Fl_Glut_Window =
-   //     window::GlWindow::new(10, 10, GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT, "GL WINDOW!");
-    
-        ///////////jgour///
-    //let system = glium_text::TextSystem::new(&gl_wind);
+    // gl_wind.set_mode(enums::Mode::Opengl3);
 
-    ///////////////////
-        // gl_wind.set_mode(enums::Mode::Opengl3);//Is flickring
     gl_wind.make_resizable(true);
 
     let arrow_angle = Rc::from(RefCell::from(0.0));
     let arrow_angle_c = arrow_angle.clone();
-    
-    
+
     gl_wind.draw(move |_| {
-               draw_scene(&arrow_angle_c.borrow());
-               //draw_lead_names(&gl_wind_c.borrow());
-
-
-              });
+        draw_scene(&arrow_angle_c.borrow());
+    });
 
     let _gl = gl::load_with(|s| gl_wind.get_proc_address(s) as *const std::os::raw::c_void);
     gl_wind.end();
@@ -140,7 +122,6 @@ pub fn main() {
 
     gl_wind.handle(|t, ev| {
         if ev == Event::Push && app::event_clicks() {
-            //  t.top_window().unwrap().hide();
             println!("Key pressed in window ");
             true
         } else {
@@ -148,7 +129,38 @@ pub fn main() {
         }
     });
 
-    /*
+       but_quit.set_callback(|_| cb_quit());
+
+    slider.set_callback(move |_| {
+        let arrow_angle = slider_c.value() as f32;
+        let msg = (Message::ArrowRotate, arrow_angle);
+        s.send(msg);
+    });
+
+    while app.wait() {
+        if let Some(msg) = r.recv() {
+            match msg {
+                (Message::ArrowRotate, angle) => {
+                    *arrow_angle.borrow_mut() = angle;
+                    frame_slider.set_label(&(angle).to_string());
+                    gl_wind.redraw();
+                    //gl_wind.swap_buffers();
+                    //app::sleep(0.026);
+                    //app::awake();
+                }
+                //_ => continue,
+                _ => println!(" Message End"),
+            } //match msg
+        } //if
+    } //while
+} //main
+
+fn cb_quit() {
+    println!("Enjoy. Tnx ");
+    std::process::exit(0x0100);
+} //cb_quit
+  /***********************************************************/
+ /*
         gl_wind.handle(|t, ev| {
             if ev == Event::Push && app::event_clicks() {
               //  t.top_window().unwrap().hide();
@@ -188,34 +200,3 @@ pub fn main() {
       }
     }
     */
-    but_quit.set_callback(|_| cb_quit());
-
-    slider.set_callback(move |_| {
-        let arrow_angle = slider_c.value() as f32;
-        let msg = (Message::ArrowRotate, arrow_angle);
-        s.send(msg);
-    });
-
-    while app.wait() {
-        if let Some(msg) = r.recv() {
-            match msg {
-                (Message::ArrowRotate, angle) => {
-                    *arrow_angle.borrow_mut() = angle;
-                    frame_slider.set_label(&(angle).to_string());
-                    gl_wind.redraw();
-                    //gl_wind.swap_buffers();
-                    //app::sleep(0.026);
-                    //app::awake();
-                }
-                //_ => continue,
-                _ => println!(" Message End"),
-            } //match msg
-        } //if
-    } //while
-} //main
-
-fn cb_quit() {
-    println!("Enjoy. Tnx ");
-    std::process::exit(0x0100);
-} //cb_quit
-  /***********************************************************/
