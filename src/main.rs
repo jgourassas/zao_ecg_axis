@@ -108,6 +108,7 @@ pub fn main() {
 
     gl_wind.draw(move |_| {
         draw_scene(&arrow_angle_c.borrow());
+        draw_lead_names();
     });
 
     let _gl = gl::load_with(|s| gl_wind.get_proc_address(s) as *const std::os::raw::c_void);

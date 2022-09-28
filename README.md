@@ -2,6 +2,8 @@
 
 ###  This piece of software Is useful to find the electrocardiographic axis of QRS complex from the Frontal leads
 
+**This work  is a homage to all pioneers of electrocardiography, The ecg_axis was described by Dr Zao n 1952 and 1984**
+
 ### QUICK START: 
 
     1. First  I recommend to Read - Study  the two articles of Zao. You can find them in Docs dir 
@@ -27,12 +29,13 @@ libgl1-mesa-dev libglu1-mesa-dev
 I have tested on a Linux Intel Machine running Ubuntu and Debian
   And works perfectly well
 
+**Thanks for the help of MoAlyousef (Mohammed Alyousef) (github.com), the author of fltk-rs.**
 
-**This software is a homage to all pioneers of electrocardiography, The ecg_axis was described by Dr Zao n 1952 and 1984**
 
 
-                                              J GOUR  MD Cardiology
-                                              THESSALONIKI GREECE
-                                              jgourassas at gmail dot com
-                                                                Enjoy it
+ J GOUR  MD Cardiology
+ THESSALONIKI GREECE
+ jgourassas at gmail dot com
+
+ Enjoy profit!!
 

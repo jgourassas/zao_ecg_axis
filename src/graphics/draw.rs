@@ -48,7 +48,7 @@ pub fn draw_scene(arrow_angle: &f32) {
     draw_lead_circles();
     set_lead_circles_annotations();
     draw_vector_arrow(arrow_angle);
-    draw_lead_names();
+   // draw_lead_names();
     draw_outside_rectangle();
 
     //draw_degree_numbers();
@@ -244,10 +244,6 @@ pub fn set_lead_circles_annotations() {
         gluQuadricNormals(qobj, GLU_SMOOTH);
         // glColor3f(0.0, 0.5, 1.0); //baby Blue
         glColor3f(2.0, 0.5, 1.0); //Lilac
-        //glColor3f(0.5, 0.5, 0.5);//Violet
-        //gl_draw(const char *s, int x, int y)
-        //void gl_draw(const char *s, int x, int y, int w, int h, Fl_Align)
-
         //Any point (x,y) on the path of the circle is x = r sin(θ), y = rcos(θ).
         //x = r*cos(a*Pi/180), y = r*sin(a*Pi/180)
 
@@ -341,12 +337,6 @@ pub fn draw_outside_circle() {
         let qobj = gluNewQuadric();
 
         glPushMatrix();
-        //glEnable(GL_DEPTH_TEST);
-        //glDepthFunc(GL_ALWAYS);
-        //glDepthFunc(GL_LEQUAL);
-        //glDepthRange(0.0, 1.0);
-        //glDepthMask(1);
-        //glMatrixMode(GL_PROJECTION);
         glColor3f(0.5, 0.0, 1.0); // make this vertex purple
         gluPartialDisk(qobj, outer_radius, outer_radius + 0.007, 142, 150, start_angle, end_angle);
         glPopMatrix();
@@ -391,49 +381,82 @@ pub fn draw_zao_lead(
 
 pub fn draw_lead_names() {
     //pub fn draw_lead_names(gl_wind: window::GlWindow) {
-    unsafe {
-        glPushMatrix();
+    println!("draw_lead_names");
+   
+    unsafe{
+      use glu_sys::*;
 
-        //  let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"));
-        // let dejavu = FontRef::try_from_slice(include_bytes!("../../fonts/OpenSans-Light.ttf"));
-        // let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+        // void gl_font(Fl_Font fontid, int size)
+  // void gl_draw(const char *s, int n, float x, float y)
+  let lead_name="I";
 
-        glColor3f(2.0, 0.5, 1.0); //Lilac
+  //fltk::gldrawtext(lead_name.c_str(), float(0.07), float(0.02),float(0.003));
+    
+/*
+use glow_glyph::{Section, GlyphBrushBuilder};
 
-        let lead_name = "I";
-        // fltk::gldrawtext(lead_name, GLUT_BITMAP_TIMES_ROMAN_24, 0, 0);
+let font: &[u8] = include_bytes!("SomeFont.ttf");
+let mut glyph_brush = GlyphBrushBuilder::using_font_bytes(font)
+    .expect("Load font")
+    .build(&glow_context);
 
-        /*
-           use glyph_brush::{ab_glyph::FontArc, BrushAction, BrushError, GlyphBrushBuilder, Section, Text};
+let section = Section {
+    text: "Hello glow_glyph",
+    ..Section::default() // color, position, etc
+};
 
-        let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"))?;
-        let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+glyph_brush.queue(section);
+glyph_brush.queue(some_other_section);
 
-        glyph_brush.queue(Section::default().add_text(Text::new("Hello glyph_brush")
+glyph_brush.draw_queued(
+    &glow_context,
+    window_width,
+    window_height,
+);
 
-        */
-        glPopMatrix();
-    } //unsafe
+
+*/
+
+
+   }//unsafe
 }
 
+/*----------------------------- */
 pub fn draw_outside_rectangle() {
 
 unsafe{
     glPushMatrix();
-// Turn on wireframe mode
+
     glPolygonMode(GL_FRONT, GL_LINE);
     glPolygonMode(GL_BACK, GL_LINE);
-    glLineWidth(8.0);
-   //glColor3f(1.0 ,1.0,1.0);         // Draw in white.
-    glColor3f(0.0, 0.0, 1.0);//dark blue
-    //glColor3f(0.1, 0.1, 0.1);//Dark grey
-    // Draw the box
- glBegin(GL_QUADS);
-    glVertex2f(-0.95, 0.95);
-	glVertex2f(0.95, 0.95);
-	glVertex2f(0.95, -0.95);
-	glVertex2f(-0.95, -0.95);
+    glLineWidth(2.0);
+   // glColor3f(0.0, 0.0, 1.0);//dark blue
+    glColor4f(1.0, 1.0, 1.0, 0.9);//white
+    glBegin(GL_QUADS);
+    glVertex2f(-0.97, 0.97);
+	glVertex2f(0.97, 0.97);
+	glVertex2f(0.97, -0.97);
+	glVertex2f(-0.97, -0.97);
 	glEnd();
+    // Draw the box
+    glPopMatrix();
+    
+    glPushMatrix();
+    glLineWidth(1.0);
+    //glColor4f(1.0, 1.0, 0.0, 0.9);//yellow
+    //glColor4f(0.5, 0.5, 0.5, 0.9);//Violet
+    //glColor3f(1.0, 0.0, 1.0);//Purple
+  //  glColor3f(1.0, 0.0, 1.0);//Purple
+    glColor4f(1.0, 1.0, 1.0, 0.9);//white
+
+    glBegin(GL_QUADS);
+    glVertex2f(-0.94, 0.94);
+	glVertex2f(0.94, 0.94);
+	glVertex2f(0.94, -0.94);
+	glVertex2f(-0.94, -0.94);
+	glEnd();
+    glPopMatrix();
+    
 // Turn off wireframe mode
 glPolygonMode(GL_FRONT, GL_FILL);
 glPolygonMode(GL_BACK, GL_FILL);
@@ -577,3 +600,21 @@ THIS IS IN C++ WITH FLTK2
                          glPopMatrix();
             */
             //////////////////////////////
+
+        //  let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"));
+        // let dejavu = FontRef::try_from_slice(include_bytes!("../../fonts/OpenSans-Light.ttf"));
+        // let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+
+        //glFont(Fl_Font fontid, int size)
+       // let lead_name = "I";
+        // fltk::gldrawtext(lead_name, GLUT_BITMAP_TIMES_ROMAN_24, 0, 0);
+
+        /*
+           use glyph_brush::{ab_glyph::FontArc, BrushAction, BrushError, GlyphBrushBuilder, Section, Text};
+
+        let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"))?;
+        let mut glyph_brush = GlyphBrushBuilder::using_font(dejavu).build();
+
+        glyph_brush.queue(Section::default().add_text(Text::new("Hello glyph_brush")
+
+        */

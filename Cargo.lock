@@ -4,15 +4,15 @@ version = 3
 
 [[package]]
 name = "bitflags"
-version = "1.3.1"
+version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2da1976d75adbe5fbc88130ecd119529cf1cc6a93ae1546d8696ee66f0d21af1"
+checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "cc"
-version = "1.0.69"
+version = "1.0.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e70cc2f62c6ce1868963827bd677764c62d07c3d9a3e1fb1177ee1a9ab199eb2"
+checksum = "2fff2a6927b3bb87f9595d67196a70493f627687a71d87a0d692242c33f58c11"
 
 [[package]]
 name = "cfg-if"
@@ -22,9 +22,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "cmake"
-version = "0.1.45"
+version = "0.1.48"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb6210b637171dfba4cda12e579ac6dc73f5165ad56133e5d72ef3131f320855"
+checksum = "e8ad8cef104ac57b68b89df3208164d228503abbdce70f6880ffa3d970e7443a"
 dependencies = [
  "cc",
 ]
@@ -52,7 +52,7 @@ dependencies = [
 [[package]]
 name = "fltk"
 version = "1.3.15"
-source = "git+https://github.com/fltk-rs/fltk-rs#8ff0efba15754c3d4f4e36e524b6ab689c8ab4ce"
+source = "git+https://github.com/fltk-rs/fltk-rs#1f68f525cd466cfbc86b37aeaa9f1f78b45969d2"
 dependencies = [
  "bitflags",
  "crossbeam-channel",
@@ -65,7 +65,7 @@ dependencies = [
 [[package]]
 name = "fltk-sys"
 version = "1.3.14"
-source = "git+https://github.com/fltk-rs/fltk-rs#8ff0efba15754c3d4f4e36e524b6ab689c8ab4ce"
+source = "git+https://github.com/fltk-rs/fltk-rs#1f68f525cd466cfbc86b37aeaa9f1f78b45969d2"
 dependencies = [
  "cmake",
 ]
