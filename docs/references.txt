@@ -84,4 +84,22 @@ the method offers substantial advantages over the traditional graphical
 approach and over tabulations of the QRS axis as a function of deflections 
 for a single pair of leads.
 
+----------------------------------------
 
+The prognostic significance of the electrical QRS axis on long-term mortality 
+in acute coronary syndrome patients - The TACOS study
+PMID: 35567860  DOI: 10.1016/j.jelectrocard.2022.04.007
+
+Conclusion: 
+
+In ACS patients, acute phase QRS-axis deviation was associated with higher 
+risk of all-cause mortality. Among the axis deviation groups, right/extreme QRS-axis deviation
+was the strongest predictor of mortality in the multivariable analysis. 
+Further studies are required to investigate to what extent this association is 
+caused by pre-existing or by ACS-induced axis deviations. 
+QRS-axis shift during hospital stay had no effect on all-cause mortality.
+--------------------------------
+Kashou AH, Basit H, Chhabra L. Electrical Right and Left Axis Deviation. [Updated 2022 Jun 7]. 
+In: StatPearls [Internet]. Treasure Island (FL): 
+StatPearls Publishing; 2022 Jan-. 
+Available from: https://www.ncbi.nlm.nih.gov/books/NBK470532/

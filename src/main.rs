@@ -4,8 +4,8 @@
 #![allow(unused_imports)]
 
 use fltk::{
-    app, app::*, button::Button, dialog::message, draw, enums::Color, enums::*, frame::Frame,
-    frame::*, prelude::*, window::*,
+    app, app::*, button::Button, dialog::message, draw, enums::Color, enums::*, 
+    frame::Frame, frame::*, prelude::*, window::*, 
 };
 
 use fltk::enums;
@@ -21,6 +21,7 @@ use std::{error::Error, fmt, mem, panic, thread, time};
 
 extern crate gl;
 use gl::types::*;
+use glu_sys::*;
 
 mod graphics;
 use graphics::draw::{
@@ -89,10 +90,14 @@ pub fn main() {
 
     let mut frame_slider = Frame::new(SLIDER_X - 70, SLIDER_Y, 70, 50, "");
     frame_slider.set_color(enums::Color::from_rgb(252, 141, 89)); //orange like
-    frame_slider.set_label_size(20);
-    // frame_slider.set_label("Frame Slider");
+    frame_slider.set_label_size(18);
+/* =================jgour*/
+let mut time = fltk::misc::Clock::new( FLTK_WINDOW_WIDTH - 130,  
+    FLTK_WINDOW_HEIGHT -  100, 80, 80, "");
+time.set_type(fltk::misc::ClockType::Square);
 
-    let mut but_quit = MyButton::new(FRAME_INFO_X + 20, FRAME_INFO_Y + 20, 70, 40, "Quit➤");
+/*========================= */
+    let mut but_quit = MyButton::new(FRAME_INFO_X + 20, FRAME_INFO_Y + 20, 70, 60, "Quit➤");
     but_quit.set_color(enums::Color::from_rgb(255, 0, 0));
     but_quit.set_frame(fltk::enums::FrameType::OFlatFrame);
 
@@ -105,10 +110,11 @@ pub fn main() {
 
     let arrow_angle = Rc::from(RefCell::from(0.0));
     let arrow_angle_c = arrow_angle.clone();
+    let gl_wind_c = gl_wind.clone();
 
     gl_wind.draw(move |_| {
         draw_scene(&arrow_angle_c.borrow());
-        draw_lead_names();
+        draw_lead_names(&gl_wind_c);
     });
 
     let _gl = gl::load_with(|s| gl_wind.get_proc_address(s) as *const std::os::raw::c_void);
@@ -145,12 +151,12 @@ pub fn main() {
                     *arrow_angle.borrow_mut() = angle;
                     frame_slider.set_label(&(angle).to_string());
                     gl_wind.redraw();
-                    //gl_wind.swap_buffers();
                     //app::sleep(0.026);
                     //app::awake();
                 }
                 //_ => continue,
-                _ => println!(" Message End"),
+                //_ => (),
+                 _ => println!(" Message End"),
             } //match msg
         } //if
     } //while

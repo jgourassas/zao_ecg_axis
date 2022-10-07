@@ -1,4 +1,11 @@
 use glu_sys::*;
+extern crate glyph_brush;
+//use glyph_brush::{ab_glyph::FontArc, GlyphBrush, GlyphBrushBuilder};
+//use glyph_brush::{ab_glyph::FontArc, BrushAction, BrushError, GlyphBrushBuilder, Section, Text};
+//use glyph_brush_layout::{ab_glyph::*, *};
+use glyph_brush_layout::{ab_glyph::*, *};
+
+
 extern crate gl;
 
 use gl::types::{GLboolean, GLchar, GLenum, GLfloat, GLsizeiptr, GLuint};
@@ -28,6 +35,7 @@ pub fn setup_gl() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
+        //glTranslatef(0.0, 0.0,  1.0);
 
         glEnable(GL_DEPTH_TEST); // Enable depth buffering
         glDepthFunc(GL_LEQUAL); // Useful for multipass shaders
@@ -48,7 +56,7 @@ pub fn draw_scene(arrow_angle: &f32) {
     draw_lead_circles();
     set_lead_circles_annotations();
     draw_vector_arrow(arrow_angle);
-   // draw_lead_names();
+    //draw_lead_names();
     draw_outside_rectangle();
 
     //draw_degree_numbers();
@@ -268,7 +276,7 @@ pub fn set_lead_circles_annotations() {
 
         glPushMatrix();
         glColor3f(2.0, 0.5, 1.0); //Lilac
-        glLineWidth(211.0);
+        glLineWidth(20.0);
         let mut j = 1.0;
         while j <= 360.0 {
             let mut jx = OUTER_RADIOUS * ((1.0 * j) * (PI / 180.0)).cos();
@@ -379,47 +387,24 @@ pub fn draw_zao_lead(
     } //unsafe
 } //draw_zao_lead
 
-pub fn draw_lead_names() {
-    //pub fn draw_lead_names(gl_wind: window::GlWindow) {
-    println!("draw_lead_names");
-   
-    unsafe{
-      use glu_sys::*;
+pub fn draw_lead_names(window_ctx: &window::GlWindow) {
 
-        // void gl_font(Fl_Font fontid, int size)
-  // void gl_draw(const char *s, int n, float x, float y)
-  let lead_name="I";
-
-  //fltk::gldrawtext(lead_name.c_str(), float(0.07), float(0.02),float(0.003));
-    
-/*
-use glow_glyph::{Section, GlyphBrushBuilder};
-
-let font: &[u8] = include_bytes!("SomeFont.ttf");
-let mut glyph_brush = GlyphBrushBuilder::using_font_bytes(font)
-    .expect("Load font")
-    .build(&glow_context);
-
-let section = Section {
-    text: "Hello glow_glyph",
-    ..Section::default() // color, position, etc
-};
-
-glyph_brush.queue(section);
-glyph_brush.queue(some_other_section);
-
-glyph_brush.draw_queued(
-    &glow_context,
-    window_width,
-    window_height,
-);
-
-
+    let font_1 = FontRef::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf")).unwrap();
+    let font_2 = FontRef::try_from_slice(include_bytes!("../../fonts/OpenSans-Italic.ttf")).unwrap();
+    let fonts = &[font_1, font_2];
+  /* 
+    lead_name="I";
+    fltk::gldrawtext(lead_name.c_str(), float(0.07), float(0.02),float(0.003));
+pub fn rtl_draw(txt: &str, x: i32, y: i32)
 */
+let lead_name="I";
+//fltk::gl::rtl_draw(lead_name.to_string(), 0.07 as i32, 0.03 as i32)
 
 
-   }//unsafe
-}
+
+
+
+}//draw_lead_names
 
 /*----------------------------- */
 pub fn draw_outside_rectangle() {
@@ -443,10 +428,6 @@ unsafe{
     
     glPushMatrix();
     glLineWidth(1.0);
-    //glColor4f(1.0, 1.0, 0.0, 0.9);//yellow
-    //glColor4f(0.5, 0.5, 0.5, 0.9);//Violet
-    //glColor3f(1.0, 0.0, 1.0);//Purple
-  //  glColor3f(1.0, 0.0, 1.0);//Purple
     glColor4f(1.0, 1.0, 1.0, 0.9);//white
 
     glBegin(GL_QUADS);
