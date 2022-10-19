@@ -1,6 +1,7 @@
 use glu_sys::*;
 extern crate gl;
-use gl::types::{GLboolean, GLchar, GLenum, GLfloat, GLsizeiptr, GLuint};
+
+
 use std::f64::consts::PI;
 use std::ffi::CString;
 use std::io::{stdout, Write};
@@ -379,21 +380,14 @@ pub fn draw_zao_lead(
 } //draw_zao_lead
 
 pub fn draw_lead_names(window_ctx: &window::GlWindow) {
-    
-   //let dejavu = FontRef::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf")).unwrap();
-  
+   //let dejavu = FontArc::try_from_slice(include_bytes!("../../fonts/DejaVuSans.ttf"));
+
    /* Sorry I can't complete the code further */  
     /*
         lead_name="I";
         fltk::gldrawtext(lead_name.c_str(), float(0.07), float(0.02),float(0.003));
     pub fn rtl_draw(txt: &str, x: i32, y: i32)
     */
-    let lead_name = "Lead I";
-    //fltk::gl::rtl_draw(lead_name.to_string(), 0.07 as i32, 0.03 as i32)
-    let mut txt = std::ffi::CString::new(lead_name).unwrap();
-//    println!{"Lead name {:p}", txt};
-
-    //fltk::gl::rtl_draw(lead_name.to_string(), 0.07 as i32, 0.03 as i32)
 } //draw_lead_names
 
 /*----------------------------- */

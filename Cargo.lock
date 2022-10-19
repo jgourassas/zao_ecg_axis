@@ -150,6 +150,5 @@ version = "0.1.0"
 dependencies = [
  "fltk",
  "gl",
- "gl_generator",
  "glu-sys",
 ]
