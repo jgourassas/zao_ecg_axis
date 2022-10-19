@@ -11,6 +11,8 @@
 
     3.  For example, if its polarities in the successive limb leads are pos., pos., pos., neg., equiphasic, pos., then referring to the circular reference s y s t e m gives a direction of + 60. 
 
+### Image
+![alt text for screen readers](images/zao_ecg_axis.jpg "ECG AXIS").
 
 **To compile you need:**
 
@@ -28,12 +30,12 @@ libgl1-mesa-dev libglu1-mesa-dev
 I have tested on a Linux Intel Machine running Ubuntu and Debian
   And works perfectly well
 
-**Thanks for the help of MoAlyousef (Mohammed Alyousef) (github.com), the author of fltk-rs.**
+**Thanks to  MoAlyousef (Mohammed Alyousef) the author of fltk-rs.**
 
 
 **This work  is a homage to all pioneers of electrocardiography, The ecg_axis was described by Dr Zao n 1952 and 1984**
 
- J GOUR  MD Cardiology
+ J Gkourasas  (Gourassas)  MD Cardiology
  THESSALONIKI GREECE
  jgourassas at gmail dot com
 
