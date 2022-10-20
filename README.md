@@ -7,11 +7,20 @@
 
     1. First  I recommend to Read - Study  the two articles of Zao. You can find them in Docs dir 
 
-    2.  In order to use the circular reference system, one first looks at the tracing of the successive limb leads I, II, III, aVR, aVL and aVF, to determine the polarity of a given deflection; i.e. whether the QRS complex is positive, negative or equiphasic. Then, starting with the innermost circle  for lead I (the white semicircle being positive,blue negative, and b o u n d a r y lines being equiphasic) and progressing outwards to leads II, III, aVR, aVL and aVF, one proceeds to match the semicircles with the polarities of the QRS complex previously obtained from the tracing.
+    2. In order to use the circular reference system, one first looks at the
+      tracing of the successive limb leads I, II, III, aVR, aVL and aVF, to 
+      determine the polarity of a given deflection; i.e. whether the QRS complex 
+      is positive, negative or equiphasic. Then, starting with the innermost 
+      circle  for lead I (the white semicircle being positive,blue negative, and 
+      b o u n d a r y lines being equiphasic) and progressing outwards to leads 
+      II, III, aVR, aVL and aVF, one proceeds to match the semicircles with the 
+       polarities of the QRS complex previously obtained from the tracing.
 
-    3.  For example, if its polarities in the successive limb leads are pos., pos., pos., neg., equiphasic, pos., then referring to the circular reference s y s t e m gives a direction of + 60. 
+    3.  For example, if its polarities in the successive limb leads are 
+        pos., pos., pos., neg., equiphasic, pos., then referring to the circular 
+         reference s y s t e m gives a direction of + 60. 
 
-### Image
+### Static Image Arrow - Axis points to  90 degrees
 ![alt text for screen readers](images/zao_ecg_axis.jpg "ECG AXIS").
 
 **To compile you need:**
